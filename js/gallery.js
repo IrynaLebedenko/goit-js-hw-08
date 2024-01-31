@@ -66,6 +66,8 @@ const images = [
 
   const galleryList = document.querySelector('.gallery');
 
+  let currentImage;
+
   function createGallery(images) {
     const gallery = images.map((image) => {
       return `<li class="gallery-item">
@@ -73,7 +75,6 @@ const images = [
       <img
         class="gallery-image"
         src="${image.preview}"
-        width="360px"
         data-source="${image.original}"
         alt="${image.description}"
       />
@@ -88,12 +89,13 @@ const images = [
   galleryList.addEventListener('click', e => {
     e.preventDefault();
     if(e.target === e.currentTarget) return;
-    const liElem = e.target;
-    const dataSource = liElem.dataset.source;
-    const image = images.find(el => el.original === dataSource);
-    modal(image);
+    const imgElem = e.target;
+    const dataSource = imgElem.dataset.source;
+    const currentImage = images.find(el => el.original === dataSource);
+    modal(currentImage);
     
   });
+console.log(currentImage);
 
   function modal(image){
     const modal = basicLightbox.create(`
@@ -101,8 +103,8 @@ const images = [
       class="gallery-image"
       src="${image.original}"
       alt="${image.description}"
-      data-source="${image.original}"
     />
+    
 `,
   {
     onShow: instance => {
