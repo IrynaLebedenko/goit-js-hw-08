@@ -88,7 +88,7 @@ const images = [
 
   galleryList.addEventListener('click', e => {
     e.preventDefault();
-    if(e.target === e.currentTarget) return;
+    if(e.target.nodeName === "IMG"); 
     const imgElem = e.target;
     const dataSource = imgElem.dataset.source;
     const currentImage = images.find(el => el.original === dataSource);
